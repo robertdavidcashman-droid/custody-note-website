@@ -1,16 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PricingToggle } from "@/components/PricingToggle";
+import { JsonLd, buildFaqJsonLd, buildBreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "Pricing – Custody Note subscription for freelance reps",
   description:
-    "Custody Note subscription for freelance police station reps and solicitors. 30-day free trial. From \u00a329/month.",
+    "Custody Note subscription for freelance police station reps and solicitors. 30-day free trial included. From \u00a329/month with optional encrypted cloud backup.",
   robots: { index: true, follow: true },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/pricing` },
 };
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com";
+
+const pricingFaqs = [
+  {
+    q: "Can I switch between plans?",
+    a: "Yes. You can upgrade to Cloud Backup or downgrade to Standard at any time. Changes take effect at your next billing date.",
+  },
+  {
+    q: "What happens after the 30-day trial?",
+    a: "Your data is preserved in the app. You just need to subscribe to continue using it. If you don\u2019t subscribe, the app becomes read-only until you do.",
+  },
+  {
+    q: "Can I cancel anytime?",
+    a: "Absolutely. There are no lock-in periods. Cancel from your Stripe dashboard and your subscription ends at the current billing period.",
+  },
+  {
+    q: "Is my data safe during the trial?",
+    a: "Yes. Local encrypted backups run every 2 minutes during the trial. Cloud backup is only available on the paid plan.",
+  },
+  {
+    q: "Do I need internet to use the app?",
+    a: "No. Custody Note works fully offline. Internet is only needed for cloud backup uploads and licence validation.",
+  },
+];
 
 export default function PricingPage() {
   return (
+    <>
+      <JsonLd data={buildFaqJsonLd(pricingFaqs)} />
+      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Home", url: siteUrl }, { name: "Pricing", url: `${siteUrl}/pricing` }])} />
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-custody-navy dark:text-white sm:text-4xl">
@@ -50,28 +80,7 @@ export default function PricingPage() {
           Frequently asked questions
         </h3>
         <dl className="mt-6 space-y-4">
-          {[
-            {
-              q: "Can I switch between plans?",
-              a: "Yes. You can upgrade to Cloud Backup or downgrade to Standard at any time. Changes take effect at your next billing date.",
-            },
-            {
-              q: "What happens after the 30-day trial?",
-              a: "Your data is preserved in the app. You just need to subscribe to continue using it. If you don\u2019t subscribe, the app becomes read-only until you do.",
-            },
-            {
-              q: "Can I cancel anytime?",
-              a: "Absolutely. There are no lock-in periods. Cancel from your Stripe dashboard and your subscription ends at the current billing period.",
-            },
-            {
-              q: "Is my data safe during the trial?",
-              a: "Yes. Local encrypted backups run every 2 minutes during the trial. Cloud backup is only available on the paid plan.",
-            },
-            {
-              q: "Do I need internet to use the app?",
-              a: "No. Custody Note works fully offline. Internet is only needed for cloud backup uploads and licence validation.",
-            },
-          ].map(({ q, a }) => (
+          {pricingFaqs.map(({ q, a }) => (
             <div
               key={q}
               className="rounded-lg border border-custody-slate/15 bg-white p-5 dark:border-custody-light/10 dark:bg-custody-slate/30"
@@ -99,5 +108,6 @@ export default function PricingPage() {
         </Link>
       </div>
     </div>
+    </>
   );
 }

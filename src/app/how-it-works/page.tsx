@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AppScreenshots } from "@/components/AppScreenshots";
 
 export const metadata: Metadata = {
-  title: "How it works",
+  title: "How it works – Custody Note step-by-step walkthrough",
   description:
-    "See how Custody Note works step by step. From the first call to billing and PDF export\u2014a walkthrough for freelance police station reps.",
+    "See how Custody Note works step by step. From the first call to billing and PDF export — a complete walkthrough for freelance police station representatives and criminal solicitors.",
   robots: { index: true, follow: true },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/how-it-works` },
 };
 
 const steps = [
@@ -99,6 +101,21 @@ export default function HowItWorksPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Screenshots */}
+      <section className="border-t border-custody-slate/10 py-16 dark:border-custody-light/10 sm:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center text-2xl font-semibold text-custody-navy dark:text-white">
+            See the app
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-custody-slate dark:text-custody-light/80">
+            Real screenshots from Custody Note — home, Quick Capture, attendance form, records, and reports.
+          </p>
+          <div className="mt-12">
+            <AppScreenshots />
           </div>
         </div>
       </section>

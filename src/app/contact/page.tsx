@@ -3,10 +3,11 @@ import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact Custody Note",
   description:
-    "Contact Custody Note for sales, support, or general enquiries.",
+    "Contact Custody Note for sales enquiries, technical support, or general questions. We respond within one working day.",
   robots: { index: true, follow: true },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/contact` },
 };
 
 export default function ContactPage() {

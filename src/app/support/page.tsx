@@ -3,10 +3,11 @@ import Link from "next/link";
 import { SUPPORT_EMAIL } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Support",
+  title: "Support – Get help with Custody Note",
   description:
-    "Get help with Custody Note. Access support resources, guides, and contact our team.",
+    "Get help with Custody Note. Access support resources, in-app guides, cloud backup help, and contact our support team directly.",
   robots: { index: true, follow: true },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/support` },
 };
 
 export default function SupportPage() {

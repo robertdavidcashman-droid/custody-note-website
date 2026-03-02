@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { TrialSignupForm } from "@/components/TrialSignupForm";
 
 export const metadata: Metadata = {
-  title: "30-day free trial",
+  title: "30-day free trial – Try Custody Note free",
   description:
-    "Start a 30-day free trial of Custody Note. No credit card required. Get a licence key to activate in the desktop app.",
+    "Start a 30-day free trial of Custody Note. No credit card required. Get a licence key instantly to activate the full desktop app for freelance police station reps.",
   robots: { index: true, follow: true },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/trial` },
 };
 
 export default function TrialPage() {
@@ -22,6 +24,21 @@ export default function TrialPage() {
 
       <div className="mt-8">
         <TrialSignupForm />
+      </div>
+
+      <div className="mt-10 overflow-hidden rounded-xl border border-custody-slate/15 dark:border-custody-light/10">
+        <div className="flex items-center gap-2 border-b border-custody-slate/10 bg-custody-light/60 px-4 py-2 dark:bg-custody-slate/50">
+          <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
+          <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
+          <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
+          <span className="ml-2 text-xs text-custody-slate/60">Custody Note</span>
+        </div>
+        <div className="relative aspect-video w-full bg-custody-navy/30">
+          <Image src="/screenshots/home.png" alt="Custody Note home screen" fill priority className="object-contain" sizes="(max-width: 768px) 100vw, 512px" />
+        </div>
+        <p className="p-3 text-center text-xs text-custody-slate/60 dark:text-custody-light/50">
+          Your trial unlocks the full app — all features, no restrictions.
+        </p>
       </div>
 
       <div className="mt-8 space-y-3 text-sm text-custody-slate dark:text-custody-light/70">

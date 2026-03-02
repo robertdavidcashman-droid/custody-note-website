@@ -23,7 +23,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-custody-slate/20 bg-custody-light/50 dark:border-custody-light/10 dark:bg-custody-slate/30">
+    <footer className="border-t border-custody-slate/20 bg-custody-light/50 dark:border-custody-light/10 dark:bg-custody-slate/30" aria-label="Site footer">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -34,61 +34,67 @@ export function Footer() {
               </p>
             </div>
             <p className="mt-2 text-sm text-custody-slate dark:text-custody-light/70">
-              The custody note app for freelance police station reps and
-              criminal solicitors.
+              Built for freelance police station reps and
+              criminal solicitors across England &amp; Wales.
             </p>
+            <Link
+              href="/trial"
+              className="mt-3 inline-block text-sm font-medium text-custody-accent transition-colors hover:text-custody-accentLight"
+            >
+              Start free trial &rarr;
+            </Link>
           </div>
-          <div>
+          <nav aria-label="Product links">
             <p className="text-sm font-semibold text-custody-navy dark:text-white">
               Product
             </p>
-            <ul className="mt-2 space-y-2">
+            <ul className="mt-2 space-y-2" role="list">
               {footerLinks.product.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-custody-slate hover:text-custody-accent dark:text-custody-light/70 dark:hover:text-custody-accent"
+                    className="text-sm text-custody-slate transition-colors hover:text-custody-accent dark:text-custody-light/70 dark:hover:text-custody-accent"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-          <div>
+          </nav>
+          <nav aria-label="Support links">
             <p className="text-sm font-semibold text-custody-navy dark:text-white">
               Support
             </p>
-            <ul className="mt-2 space-y-2">
+            <ul className="mt-2 space-y-2" role="list">
               {footerLinks.support.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-custody-slate hover:text-custody-accent dark:text-custody-light/70 dark:hover:text-custody-accent"
+                    className="text-sm text-custody-slate transition-colors hover:text-custody-accent dark:text-custody-light/70 dark:hover:text-custody-accent"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-          <div>
+          </nav>
+          <nav aria-label="Legal links">
             <p className="text-sm font-semibold text-custody-navy dark:text-white">
               Legal
             </p>
-            <ul className="mt-2 space-y-2">
+            <ul className="mt-2 space-y-2" role="list">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-custody-slate hover:text-custody-accent dark:text-custody-light/70 dark:hover:text-custody-accent"
+                    className="text-sm text-custody-slate transition-colors hover:text-custody-accent dark:text-custody-light/70 dark:hover:text-custody-accent"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
         </div>
         <p className="mt-8 border-t border-custody-slate/20 pt-8 text-center text-sm text-custody-slate dark:border-custody-light/10 dark:text-custody-light/60">
           &copy; {new Date().getFullYear()} Custody Note. All rights reserved.

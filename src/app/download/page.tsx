@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { APP_VERSION } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Download",
+  title: "Download Custody Note for Windows",
   description:
-    "Download Custody Note for Windows. The desktop app for freelance police station reps and criminal solicitors.",
+    "Download Custody Note for Windows 10 and 11. The desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, and PDF export.",
   robots: { index: true, follow: true },
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/download` },
 };
 
 export default function DownloadPage() {
@@ -55,6 +57,34 @@ export default function DownloadPage() {
         <p className="mt-3 text-center text-xs text-custody-slate dark:text-custody-light/50">
           Windows 10 or later required
         </p>
+      </div>
+
+      {/* App preview */}
+      <div className="mt-12">
+        <h2 className="text-xl font-semibold text-custody-navy dark:text-white">
+          What you&apos;ll get
+        </h2>
+        <p className="mt-2 text-sm text-custody-slate dark:text-custody-light/80">
+          Custody Note opens to a command centre with Tel Advice, Quick Capture, and New Attendance — everything in one place.
+        </p>
+        <div className="mt-4 overflow-hidden rounded-xl border border-custody-slate/15 shadow-lg dark:border-custody-light/10">
+          <div className="flex items-center gap-2 border-b border-custody-slate/10 bg-custody-light/60 px-4 py-2.5 dark:bg-custody-slate/50">
+            <span className="h-3 w-3 rounded-full bg-red-400/70" />
+            <span className="h-3 w-3 rounded-full bg-yellow-400/70" />
+            <span className="h-3 w-3 rounded-full bg-green-400/70" />
+            <span className="ml-2 text-xs text-custody-slate/60 dark:text-custody-light/40">Custody Note</span>
+          </div>
+          <div className="relative aspect-video w-full bg-custody-navy/50">
+            <Image
+              src="/screenshots/home.png"
+              alt="Custody Note home screen with action cards"
+              fill
+              priority
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 896px"
+            />
+          </div>
+        </div>
       </div>
 
       {/* System requirements */}

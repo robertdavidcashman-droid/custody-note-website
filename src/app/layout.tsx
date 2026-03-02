@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { JsonLd, organizationJsonLd } from "@/components/JsonLd";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -74,6 +75,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export function viewport() {
@@ -88,8 +92,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`dark ${outfit.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen flex flex-col font-sans antialiased">
+        <JsonLd data={organizationJsonLd} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
