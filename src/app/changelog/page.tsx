@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import releasesData from "../../../data/releases.json";
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -8,33 +9,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const releases = [
-  {
-    version: "1.0.0",
-    date: "2026-03-01",
-    latest: true,
-    changes: [
-      "Initial public release",
-      "Full attendance records with PACE review tracking",
-      "Telephone advice (INVB) recording",
-      "Quick Capture for incoming calls",
-      "Client details, offence picker with type-ahead search",
-      "Disclosure and OIC fields",
-      "LAA outcome codes, stage reached, and fee codes",
-      "Time recording (travel, waiting, attendance)",
-      "Firm tracking and multi-firm billing",
-      "Disbursements with VAT treatment",
-      "PDF export of attendance notes",
-      "Reports by month, firm, and station",
-      "Local encrypted backups every 2 minutes",
-      "Off-site folder backup (OneDrive, Dropbox, etc.)",
-      "Incorruptible cloud backup on AWS (subscriber add-on)",
-      "AES-256-GCM encryption for all backups",
-      "Licence key activation (trial and paid)",
-      "Works fully offline at any police station",
-    ],
-  },
-];
+type Release = {
+  version: string;
+  date: string;
+  latest?: boolean;
+  changes: string[];
+};
+
+const releases = (Array.isArray(releasesData.releases) ? releasesData.releases : []) as Release[];
 
 export default function ChangelogPage() {
   return (
@@ -48,7 +30,7 @@ export default function ChangelogPage() {
       </p>
 
       <div className="mt-10 space-y-12">
-        {releases.map((release) => (
+        {releases.slice(0, 40).map((release) => (
           <article
             key={release.version}
             className="rounded-xl border border-custody-slate/15 bg-white p-6 shadow-sm dark:border-custody-light/10 dark:bg-custody-slate/30"
@@ -79,7 +61,7 @@ export default function ChangelogPage() {
                   <span className="mt-0.5 shrink-0 text-custody-accent">
                     &bull;
                   </span>
-                  {change}
+                  <span>{change}</span>
                 </li>
               ))}
             </ul>
@@ -87,14 +69,11 @@ export default function ChangelogPage() {
         ))}
       </div>
 
-      <div className="mt-10">
-        <Link
-          href="/download"
-          className="rounded-lg bg-custody-blue px-5 py-2.5 text-sm font-medium text-white hover:bg-custody-accent"
-        >
+      <p className="mt-12 text-sm text-custody-slate dark:text-custody-light/60">
+        <Link href="/download" className="text-custody-blue hover:underline dark:text-custody-accent">
           Download the latest version
         </Link>
-      </div>
+      </p>
     </div>
   );
 }
