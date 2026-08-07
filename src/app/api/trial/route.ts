@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
 import { sendTrialKeyEmail } from "@/lib/email";
+import { rateLimitResponse } from "@/lib/rate-limit";
 
 const TRIAL_DAYS = 30;
+const RATE_LIMIT = { name: "trial-signup", limit: 10, windowMs: 60_000 };
 
 function generateLicenseKey(): string {
   const segment = () =>
@@ -19,6 +21,9 @@ function expiresAt(): string {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimitResponse(req, RATE_LIMIT);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const email = typeof body?.email === "string" ? body.email.trim() : "";
@@ -65,7 +70,7 @@ export async function POST(req: NextRequest) {
       message: "Trial activated. Use the key in the desktop app.",
     });
   } catch (err) {
-    console.error("Trial signup error:", err);
+    console.error("Trial signup error");
     return NextResponse.json(
       {
         error:

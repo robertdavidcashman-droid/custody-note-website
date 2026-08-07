@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
+import { rateLimitResponse } from "@/lib/rate-limit";
+
+const RATE_LIMIT = { name: "licence-validate", limit: 30, windowMs: 60_000 };
 
 /**
  * POST /api/licence/validate
@@ -7,13 +10,16 @@ import { kv } from "@vercel/kv";
  * Body: { key: string, machineId: string, appVersion?: string }
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimitResponse(req, RATE_LIMIT);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const key = typeof body?.key === "string" ? body.key.trim() : "";
     if (!key) {
       return NextResponse.json(
         { valid: false, message: "Missing licence key." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -29,7 +35,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         valid: !expired,
         expiresAt: trialData.expiresAt,
-        email: trialData.email,
         cloudBackup: false,
         message: expired ? "Trial has expired." : undefined,
       });
@@ -63,7 +68,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       valid: !expired && !revoked,
       expiresAt: subData.expiresAt || null,
-      email: subData.email,
       cloudBackup: !!subData.cloudBackup && !expired && !revoked,
       message: revoked
         ? "Licence has been revoked."
@@ -72,10 +76,10 @@ export async function POST(req: NextRequest) {
           : undefined,
     });
   } catch (err) {
-    console.error("Licence validate error:", err);
+    console.error("Licence validate error");
     return NextResponse.json(
       { valid: false, error: "Validation failed." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

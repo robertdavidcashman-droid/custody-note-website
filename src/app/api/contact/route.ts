@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { redactEmail } from "@/lib/redact";
 
 /**
  * POST /api/contact
@@ -27,7 +28,12 @@ export async function POST(req: NextRequest) {
     }
 
     // TODO: Send email via Resend / SendGrid when configured
-    console.log("[Contact form]", { name, email, subject, message });
+    console.log("[Contact form] received", {
+      subject,
+      nameLen: typeof name === "string" ? name.trim().length : 0,
+      email: redactEmail(String(email)),
+      messageLen: typeof message === "string" ? message.trim().length : 0,
+    });
 
     return NextResponse.json({
       message: "Message sent. We\u2019ll get back to you within one working day.",
