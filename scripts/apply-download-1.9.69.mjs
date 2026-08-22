@@ -94,6 +94,44 @@ function syncReleasesJson(root) {
   write(path, JSON.stringify(out, null, 2) + "\n");
 }
 
+function softenGatekeeperClaims(text) {
+  let out = text;
+  // Live currently says "Developer ID signed"; older trees said "signed and notarised".
+  out = out.replace(
+    /On first launch, Custody Note is\{\s*" "\s*\}\s*\n\s*<strong className="text-white">Developer ID signed<\/strong> and\s*\n\s*should open normally\. If macOS Gatekeeper blocks the app,\s*\n\s*right-click Custody Note in Applications and choose\{\s*" "\s*\}\s*\n\s*<strong className="text-white">Open<\/strong> once\./g,
+    `This Mac build is not yet Apple-signed or notarised. If macOS
+                Gatekeeper blocks the app, right-click Custody Note in
+                Applications and choose{" "}
+                <strong className="text-white">Open</strong> once. A signed
+                build is coming.`
+  );
+  out = out.replace(
+    /The Mac download is Developer ID signed by Apple\. You should not\s*\n\s*see an &ldquo;unidentified developer&rdquo; warning under normal\s*\n\s*circumstances\. If macOS still blocks launch, use right-click &rarr;\{\s*" "\s*\}\s*\n\s*Open once, or check you downloaded the correct architecture \(Apple\s*\n\s*Silicon vs Intel\)\./g,
+    `This Mac build is not yet Apple-signed or notarised. If Gatekeeper
+            blocks launch, use right-click &rarr;{" "}
+            Open once, or check you downloaded the correct architecture (Apple
+            Silicon vs Intel). A signed build is coming.`
+  );
+  out = out.replace(/Developer ID signed by Apple/g, "not yet Apple-signed or notarised");
+  out = out.replace(
+    /<strong className="text-white">Developer ID signed<\/strong>/g,
+    `<strong className="text-white">not yet signed/notarised</strong>`
+  );
+  out = out.replace(
+    /macOS 11 or later &middot; Apple Silicon &amp; Intel &middot; signed &amp; notarised/g,
+    "macOS 11 or later &middot; Apple Silicon &amp; Intel &middot; unsigned build"
+  );
+  out = out.replace(
+    /macOS 11 or later &middot; Apple Silicon &amp; Intel &middot; signed\s*\n\s*&amp; notarised &middot; ~130 MB/g,
+    "macOS 11 or later &middot; Apple Silicon &amp; Intel &middot; unsigned build &middot; ~130 MB"
+  );
+  out = out.replace(
+    /Apple Silicon &amp; Intel &middot; signed &amp; notarised/g,
+    "Apple Silicon &amp; Intel &middot; unsigned build"
+  );
+  return out;
+}
+
 function copyPatchedUi(root) {
   const downloadSrc = join(PATCH_DIR, "download-page.tsx");
   const macSrc = join(PATCH_DIR, "MacDownloadPicker.tsx");
@@ -103,14 +141,20 @@ function copyPatchedUi(root) {
   if (!existsSync(macDest)) throw new Error(`Missing ${macDest}`);
   copyFileSync(downloadSrc, downloadDest);
   copyFileSync(macSrc, macDest);
+  // Also soften whatever wording is currently live (Developer ID signed, etc.)
+  write(downloadDest, softenGatekeeperClaims(read(downloadDest)));
+  write(macDest, softenGatekeeperClaims(read(macDest)));
   console.log("[ok] copied patched download page + MacDownloadPicker");
 
   const dl = read(downloadDest);
-  if (!dl.includes("not yet Apple-signed")) {
+  if (!dl.includes("not yet Apple-signed") && !dl.includes("unsigned build")) {
     throw new Error("Download page missing unsigned Gatekeeper copy");
   }
   if (!dl.includes("SmartScreen")) {
     throw new Error("Download page lost Windows SmartScreen guidance");
+  }
+  if (/Developer ID signed/.test(dl)) {
+    throw new Error("Download page still claims Developer ID signed");
   }
   const mac = read(macDest);
   if (!mac.includes("unsigned build")) {
