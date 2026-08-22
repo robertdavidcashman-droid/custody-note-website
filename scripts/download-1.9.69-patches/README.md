@@ -10,7 +10,7 @@ Production **custodynote.com** is **not** built from this public GitHub repo’s
 | Vercel project | `custody-note-website` (`prj_zPV1EYswHU0Nih1iASwSOxEY64NN`) |
 | This repo (`robertdavidcashman-droid/custody-note-website`) | Older 1.9.52-era site (Windows-only `/download`) |
 
-Live download buttons go through `/api/stats/download`, which currently redirects to **bit** `v1.9.68` assets. New **1.9.69** Win + unsigned Mac builds are on **droid**:
+Live `/download` already shows **1.9.69**, but redirects still target **bit** (not droid), Mac copy still claims **Developer ID signed**, and What’s New still shows 1.9.68 notes. Target **1.9.69** Win + unsigned Mac builds on **droid**:
 
 - `Custody-Note-Setup-1.9.69.exe`
 - `Custody-Note-1.9.69-arm64.dmg`
