@@ -4,7 +4,7 @@
 
 ## What is Custody Note?
 
-Custody Note is a Windows desktop application built specifically for freelance police station representatives and criminal solicitors who attend police stations on behalf of defence firms across England and Wales. It replaces paper-based and Word-document workflows with a structured, digital system that meets Legal Aid Agency (LAA) compliance requirements.
+Custody Note is a desktop application for Windows and Mac built specifically for freelance police station representatives and criminal solicitors who attend police stations on behalf of defence firms across England and Wales. It replaces paper-based and Word-document workflows with a structured, digital system that meets Legal Aid Agency (LAA) compliance requirements.
 
 The app runs entirely on the user's machine and works offline — no internet connection is needed at the police station. Data stays on the user's device unless they opt in to encrypted cloud backup.
 
@@ -51,7 +51,7 @@ Cloud Backup encrypts the user's database on their machine using AES-256-GCM and
 
 ## System Requirements
 
-- Windows 10 or Windows 11
+- Windows 10 or Windows 11; macOS 11+ (Apple Silicon and Intel)
 - 4 GB RAM minimum (8 GB recommended)
 - 200 MB free disk space
 - Internet required only for licence validation and cloud backup uploads

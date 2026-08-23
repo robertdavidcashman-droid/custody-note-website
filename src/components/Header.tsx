@@ -39,16 +39,10 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="/trial"
-            className="hidden rounded-lg px-3 py-2 text-sm font-medium text-custody-slate transition-colors hover:bg-custody-light hover:text-custody-navy dark:text-custody-light/90 dark:hover:bg-custody-slate dark:hover:text-white sm:inline-flex"
-          >
-            Start trial
-          </Link>
-          <Link
-            href="/buy"
+            href="/download"
             className="hidden rounded-lg bg-custody-blue px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-custody-accent sm:inline-flex"
           >
-            Buy
+            Download free
           </Link>
 
           {/* Mobile hamburger */}
@@ -91,18 +85,11 @@ export function Header() {
             ))}
             <hr className="my-2 border-custody-slate/10 dark:border-custody-light/10" />
             <Link
-              href="/trial"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-lg px-3 py-2.5 text-sm font-medium text-custody-slate transition-colors hover:bg-custody-light dark:text-custody-light/90 dark:hover:bg-custody-slate"
-            >
-              Start trial
-            </Link>
-            <Link
-              href="/buy"
+              href="/download"
               onClick={() => setMobileOpen(false)}
               className="rounded-lg bg-custody-blue px-3 py-2.5 text-center text-sm font-medium text-white transition-colors hover:bg-custody-accent"
             >
-              Buy
+              Download free
             </Link>
           </div>
         </nav>

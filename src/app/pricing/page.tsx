@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PricingToggle } from "@/components/PricingToggle";
 import { JsonLd, buildFaqJsonLd, buildBreadcrumbJsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "Pricing – Custody Note subscription for freelance reps",
+  title: "Pricing — Free during beta | Custody Note",
   description:
-    "Custody Note subscription for freelance police station reps and solicitors. 30-day free trial included. From \u00a329/month with optional encrypted cloud backup.",
+    "Custody Note is free during beta. Paid Pro (~£9.99/month) is planned after beta — payments are not wired yet.",
   robots: { index: true, follow: true },
   alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/pricing` },
 };
@@ -15,24 +14,20 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com";
 
 const pricingFaqs = [
   {
-    q: "Can I switch between plans?",
-    a: "Yes. You can upgrade to Cloud Backup or downgrade to Standard at any time. Changes take effect at your next billing date.",
+    q: "Is Custody Note free?",
+    a: "Yes during beta. Download and use core features with no credit card. Paid Pro is planned after beta.",
   },
   {
-    q: "What happens after the 30-day trial?",
-    a: "Your data is preserved in the app. You just need to subscribe to continue using it. If you don\u2019t subscribe, the app becomes read-only until you do.",
-  },
-  {
-    q: "Can I cancel anytime?",
-    a: "Absolutely. There are no lock-in periods. Cancel from your Stripe dashboard and your subscription ends at the current billing period.",
-  },
-  {
-    q: "Is my data safe during the trial?",
-    a: "Yes. Local encrypted backups run every 2 minutes during the trial. Cloud backup is only available on the paid plan.",
+    q: "Can I buy Pro now?",
+    a: "Not yet. Payments are not wired. Pro (~£9.99/month) is planned after beta for advanced tools such as managed cloud backup and sync.",
   },
   {
     q: "Do I need internet to use the app?",
-    a: "No. Custody Note works fully offline. Internet is only needed for cloud backup uploads and licence validation.",
+    a: "No. Custody Note works fully offline. Internet is only needed for optional cloud features and updates.",
+  },
+  {
+    q: "Windows and Mac?",
+    a: "Yes. Windows 10+ and macOS 11+ (Apple Silicon and Intel). Mobile is not supported.",
   },
 ];
 
@@ -40,74 +35,89 @@ export default function PricingPage() {
   return (
     <>
       <JsonLd data={buildFaqJsonLd(pricingFaqs)} />
-      <JsonLd data={buildBreadcrumbJsonLd([{ name: "Home", url: siteUrl }, { name: "Pricing", url: `${siteUrl}/pricing` }])} />
-    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-custody-navy dark:text-white sm:text-4xl">
-          Simple, transparent pricing
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-custody-slate dark:text-custody-light/80">
-          One subscription. No per-seat charges, no hidden fees. Add cloud
-          backup for incorruptible, SRA-compliant off-site protection.
-        </p>
-      </div>
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: "Home", url: siteUrl },
+          { name: "Pricing", url: `${siteUrl}/pricing` },
+        ])}
+      />
+      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="text-center">
+          <p className="text-sm font-medium uppercase tracking-wide text-custody-accent">
+            Public beta
+          </p>
+          <h1 className="mt-2 text-3xl font-bold text-custody-navy dark:text-white sm:text-4xl">
+            Free during beta
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-custody-slate dark:text-custody-light/80">
+            Custody Note is in beta — that&apos;s why it&apos;s free while we
+            test with real police station work. No credit card. Paid Pro is
+            planned after beta (around £9.99/month). Payments are not wired yet.
+          </p>
+        </div>
 
-      <div className="mt-12">
-        <PricingToggle />
-      </div>
-
-      <div className="mt-12 rounded-xl border border-amber-300/50 bg-amber-50 p-6 dark:border-amber-500/30 dark:bg-amber-950/20">
-        <h3 className="font-semibold text-amber-900 dark:text-amber-200">
-          Why cloud backup matters
-        </h3>
-        <p className="mt-2 text-sm text-amber-800 dark:text-amber-300/80">
-          Without cloud backup, your entire database is stored only on your
-          computer. If your hard drive fails, is stolen, or is damaged, your
-          records could be permanently lost with no chance of recovery. Cloud
-          backup provides an incorruptible copy in a secure UK data centre that
-          nobody &mdash; not even us &mdash; can tamper with or delete.
-        </p>
-        <Link
-          href="/cloud-backup"
-          className="mt-3 inline-block text-sm font-medium text-amber-900 underline hover:text-amber-700 dark:text-amber-200 dark:hover:text-amber-100"
-        >
-          Learn more about cloud backup &rarr;
-        </Link>
-      </div>
-
-      <div className="mx-auto mt-12 max-w-3xl">
-        <h3 className="text-center text-xl font-semibold text-custody-navy dark:text-white">
-          Frequently asked questions
-        </h3>
-        <dl className="mt-6 space-y-4">
-          {pricingFaqs.map(({ q, a }) => (
-            <div
-              key={q}
-              className="rounded-lg border border-custody-slate/15 bg-white p-5 dark:border-custody-light/10 dark:bg-custody-slate/30"
+        <div className="mx-auto mt-12 grid max-w-3xl gap-6 md:grid-cols-2">
+          <div className="rounded-xl border-2 border-custody-accent bg-white p-8 dark:bg-custody-slate/30">
+            <h2 className="text-xl font-semibold text-custody-navy dark:text-white">
+              Free during beta
+            </h2>
+            <p className="mt-2 text-3xl font-bold text-custody-navy dark:text-white">
+              £0
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-custody-slate dark:text-custody-light/80">
+              <li>Structured PACE attendance notes</li>
+              <li>PDF export and time recording</li>
+              <li>Offline-first encrypted local storage</li>
+              <li>Windows and Mac</li>
+            </ul>
+            <Link
+              href="/download"
+              className="mt-6 block rounded-lg bg-custody-blue px-5 py-3 text-center text-sm font-medium text-white hover:bg-custody-accent"
             >
-              <dt className="font-medium text-custody-navy dark:text-white">
-                {q}
-              </dt>
-              <dd className="mt-2 text-sm text-custody-slate dark:text-custody-light/80">
-                {a}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+              Download free
+            </Link>
+          </div>
+          <div className="rounded-xl border border-custody-slate/20 bg-white p-8 dark:bg-custody-slate/30">
+            <h2 className="text-xl font-semibold text-custody-navy dark:text-white">
+              Pro (planned)
+            </h2>
+            <p className="mt-2 text-3xl font-bold text-custody-navy dark:text-white">
+              ~£9.99
+              <span className="text-base font-normal text-custody-slate">/month</span>
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-custody-slate dark:text-custody-light/80">
+              <li>Everything in beta</li>
+              <li>Managed cloud backup (planned)</li>
+              <li>Cross-device sync (planned)</li>
+              <li>Not purchasable yet — payments not wired</li>
+            </ul>
+            <Link
+              href="/contact"
+              className="mt-6 block rounded-lg border border-custody-blue px-5 py-3 text-center text-sm font-medium text-custody-blue hover:bg-custody-light dark:text-custody-accent dark:hover:bg-custody-slate"
+            >
+              Register firm interest
+            </Link>
+          </div>
+        </div>
 
-      <div className="mt-12 text-center">
-        <p className="text-custody-slate dark:text-custody-light/80">
-          Not sure yet? Try it free for 30 days &mdash; no credit card required.
-        </p>
-        <Link
-          href="/trial"
-          className="mt-4 inline-block rounded-lg border border-custody-slate/30 px-5 py-2.5 text-sm font-medium text-custody-navy hover:bg-custody-light dark:border-custody-light/20 dark:text-white dark:hover:bg-custody-slate"
-        >
-          Start 30-day free trial
-        </Link>
+        <div className="mx-auto mt-12 max-w-3xl">
+          <h3 className="text-center text-xl font-semibold text-custody-navy dark:text-white">
+            Frequently asked questions
+          </h3>
+          <dl className="mt-8 space-y-6">
+            {pricingFaqs.map((faq) => (
+              <div key={faq.q}>
+                <dt className="font-medium text-custody-navy dark:text-white">
+                  {faq.q}
+                </dt>
+                <dd className="mt-2 text-sm text-custody-slate dark:text-custody-light/80">
+                  {faq.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
-    </div>
     </>
   );
 }
