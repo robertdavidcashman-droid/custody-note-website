@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title:
     "Custody Note – The custody note app for freelance police station reps",
   description:
-    "Desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, firm billing, and PDF export. 30-day free trial.",
+    "Desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, firm billing, and PDF export. Free during beta.",
   openGraph: {
     title:
       "Custody Note – The custody note app for freelance police station reps",
     description:
-      "Desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, firm billing, and PDF export.",
+      "Desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, firm billing, and PDF export. Free during beta.",
   },
 };
 
@@ -45,20 +45,20 @@ export default function HomePage() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up">
               <Link
-                href="/trial"
+                href="/download"
                 className="rounded-lg bg-custody-accent px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-custody-accent/25 transition-all duration-200 hover:bg-custody-accentLight hover:shadow-xl hover:shadow-custody-accent/30 hover:-translate-y-0.5 active:scale-[0.98]"
               >
-                Start 30-day free trial
+                Download free
               </Link>
               <Link
-                href="/buy"
+                href="/pricing"
                 className="rounded-lg border border-custody-light/20 bg-white/5 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition-all duration-200 hover:bg-white/10 hover:border-custody-light/40 hover:-translate-y-0.5 active:scale-[0.98]"
               >
-                Subscribe
+                Pricing
               </Link>
             </div>
             <p className="mt-5 text-sm text-custody-light/50">
-              No credit card for trial. Subscription only — cancel any time.
+              Free during beta. No credit card. Paid Pro planned after beta.
             </p>
 
             {/* Trust bar */}
@@ -446,21 +446,15 @@ export default function HomePage() {
             Ready to try Custody Note?
           </h2>
           <p className="mt-4 text-lg text-white/80">
-            Download the app and start your 30-day free trial. No credit card
-            required.
+            Download the app — free during beta. No credit card required. Paid
+            Pro planned after beta.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/download"
               className="rounded-lg bg-white px-7 py-3.5 text-base font-semibold text-custody-blue shadow-lg transition-all duration-200 hover:bg-custody-light hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]"
             >
-              Download now
-            </Link>
-            <Link
-              href="/trial"
-              className="rounded-lg border border-white/30 px-7 py-3.5 text-base font-semibold text-white transition-all duration-200 hover:bg-white/10 hover:border-white/50 hover:-translate-y-0.5 active:scale-[0.98]"
-            >
-              Start free trial
+              Download free
             </Link>
             <Link
               href="/pricing"

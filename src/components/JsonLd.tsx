@@ -31,7 +31,7 @@ export const softwareJsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Custody Note",
-  operatingSystem: "Windows 10, Windows 11",
+  operatingSystem: "Windows 10+, macOS 11+ (Apple Silicon and Intel)",
   applicationCategory: "BusinessApplication",
   description:
     "Desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, firm billing, and PDF export.",

@@ -4,12 +4,18 @@ import Link from "next/link";
 import { APP_VERSION } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Download Custody Note for Windows",
+  title: "Download Custody Note for Windows and Mac — Free during beta",
   description:
-    "Download Custody Note for Windows 10 and 11. The desktop app for freelance police station representatives and criminal solicitors. LAA-compliant custody notes, time recording, and PDF export.",
+    "Download Custody Note for Windows 10+ and macOS (Apple Silicon and Intel). Structured attendance notes for solicitors and reps. Free during beta.",
   robots: { index: true, follow: true },
   alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/download` },
 };
+
+const DROID_RELEASE =
+  "https://github.com/robertdavidcashman-droid/custody-note-app/releases/download";
+const WIN_URL = `${DROID_RELEASE}/v${APP_VERSION}/Custody-Note-Setup-${APP_VERSION}.exe`;
+const MAC_ARM_URL = `${DROID_RELEASE}/v${APP_VERSION}/Custody-Note-${APP_VERSION}-arm64.dmg`;
+const MAC_X64_URL = `${DROID_RELEASE}/v${APP_VERSION}/Custody-Note-${APP_VERSION}-x64.dmg`;
 
 export default function DownloadPage() {
   return (
@@ -18,46 +24,62 @@ export default function DownloadPage() {
         Download Custody Note
       </h1>
       <p className="mt-4 max-w-2xl text-custody-slate dark:text-custody-light/80">
-        Get the desktop app and start recording attendances in minutes.
+        Install in under a minute on Windows or Mac. Free during beta. No credit
+        card. Paid Pro planned after beta.
       </p>
 
-      {/* Download card */}
-      <div className="mt-8 max-w-lg rounded-xl border-2 border-custody-accent bg-white p-8 shadow-sm dark:bg-custody-slate/30">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-custody-accent/10 dark:bg-custody-accent/20">
-            <svg
-              className="h-6 w-6 text-custody-blue dark:text-custody-accent"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-              />
-            </svg>
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold text-custody-navy dark:text-white">
-              Windows Installer
-            </h2>
-            <p className="text-sm text-custody-slate dark:text-custody-light/60">
-              Version {APP_VERSION} &middot; ~90 MB
-            </p>
-          </div>
+      {/* Download cards */}
+      <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <div className="rounded-xl border-2 border-custody-accent bg-white p-8 shadow-sm dark:bg-custody-slate/30">
+          <h2 className="text-lg font-semibold text-custody-navy dark:text-white">
+            Windows Installer
+          </h2>
+          <p className="mt-1 text-sm text-custody-slate dark:text-custody-light/60">
+            Version {APP_VERSION} &middot; Windows 10+ &middot; ~90 MB
+          </p>
+          <a
+            href={WIN_URL}
+            className="mt-6 block rounded-lg bg-custody-blue px-5 py-3 text-center text-base font-medium text-white hover:bg-custody-accent"
+          >
+            Download for Windows
+          </a>
+          <p className="mt-3 text-center text-xs text-custody-slate dark:text-custody-light/50">
+            Free during beta · No credit card required
+          </p>
         </div>
-        <a
-          href="#"
-          className="mt-6 block rounded-lg bg-custody-blue px-5 py-3 text-center text-base font-medium text-white hover:bg-custody-accent"
-        >
-          Download for Windows
-        </a>
-        <p className="mt-3 text-center text-xs text-custody-slate dark:text-custody-light/50">
-          Windows 10 or later required
-        </p>
+        <div className="rounded-xl border border-custody-slate/20 bg-white p-8 shadow-sm dark:bg-custody-slate/30">
+          <h2 className="text-lg font-semibold text-custody-navy dark:text-white">
+            Mac (Apple Silicon / Intel)
+          </h2>
+          <p className="mt-1 text-sm text-custody-slate dark:text-custody-light/60">
+            Version {APP_VERSION} &middot; macOS 11+ &middot; ~130 MB
+          </p>
+          <div className="mt-6 flex flex-col gap-3">
+            <a
+              href={MAC_ARM_URL}
+              className="block rounded-lg bg-custody-blue px-5 py-3 text-center text-base font-medium text-white hover:bg-custody-accent"
+            >
+              Download for Apple Silicon
+            </a>
+            <a
+              href={MAC_X64_URL}
+              className="block rounded-lg border border-custody-blue px-5 py-3 text-center text-base font-medium text-custody-blue hover:bg-custody-light dark:text-custody-accent dark:hover:bg-custody-slate"
+            >
+              Download for Intel Mac
+            </a>
+          </div>
+          <p className="mt-3 text-center text-xs text-custody-slate dark:text-custody-light/50">
+            In beta · Free while we test · No credit card required
+          </p>
+        </div>
       </div>
+
+      <p className="mt-8 text-center text-sm text-custody-slate dark:text-custody-light/60">
+        Firm or team interest?{" "}
+        <Link href="/pricing" className="font-medium text-custody-blue hover:underline dark:text-custody-accent">
+          See planned Pro pricing (payments not wired yet) →
+        </Link>
+      </p>
 
       {/* App preview */}
       <div className="mt-12">
@@ -95,7 +117,11 @@ export default function DownloadPage() {
         <ul className="mt-4 space-y-2 text-sm text-custody-slate dark:text-custody-light/80">
           <li className="flex items-start gap-2">
             <span className="mt-0.5 shrink-0 text-custody-accent">&#10003;</span>
-            Windows 10 or Windows 11
+            Windows 10 or Windows 11 (64-bit)
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 shrink-0 text-custody-accent">&#10003;</span>
+            macOS 11 or later (Apple Silicon and Intel)
           </li>
           <li className="flex items-start gap-2">
             <span className="mt-0.5 shrink-0 text-custody-accent">&#10003;</span>
@@ -141,7 +167,7 @@ export default function DownloadPage() {
               step: 4,
               title: "Enter your licence key",
               description:
-                "When prompted, enter the licence key you received by email. If you don\u2019t have one yet, start a free trial below.",
+                "When prompted, set your recovery password and firm details. No licence key is required during the free beta.",
             },
           ].map(({ step, title, description }) => (
             <li key={step} className="flex gap-4">
@@ -164,24 +190,24 @@ export default function DownloadPage() {
       {/* CTA */}
       <div className="mt-12 rounded-xl border border-custody-slate/15 bg-custody-light/30 p-6 dark:border-custody-light/10 dark:bg-custody-slate/20">
         <h3 className="font-semibold text-custody-navy dark:text-white">
-          Don&apos;t have a licence key?
+          Free during beta
         </h3>
         <p className="mt-2 text-sm text-custody-slate dark:text-custody-light/80">
-          Start a 30-day free trial &mdash; no credit card required. All
-          features are unlocked.
+          Core features are free while we test. Paid Pro is planned after beta
+          (payments are not wired yet).
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
-            href="/trial"
+            href="/pricing"
             className="rounded-lg bg-custody-blue px-5 py-2.5 text-sm font-medium text-white hover:bg-custody-accent"
           >
-            Start free trial
+            See pricing
           </Link>
           <Link
-            href="/pricing"
+            href="/contact"
             className="rounded-lg border border-custody-slate/30 px-5 py-2.5 text-sm font-medium text-custody-navy hover:bg-custody-light dark:border-custody-light/20 dark:text-white dark:hover:bg-custody-slate"
           >
-            See pricing
+            Contact us
           </Link>
         </div>
       </div>

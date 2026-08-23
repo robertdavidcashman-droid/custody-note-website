@@ -5,7 +5,7 @@ const footerLinks = {
   product: [
     { label: "Features", href: "/#features" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Free trial", href: "/trial" },
+    { label: "Download free", href: "/download" },
     { label: "Download", href: "/download" },
   ],
   support: [
@@ -38,10 +38,10 @@ export function Footer() {
               criminal solicitors across England &amp; Wales.
             </p>
             <Link
-              href="/trial"
+              href="/download"
               className="mt-3 inline-block text-sm font-medium text-custody-accent transition-colors hover:text-custody-accentLight"
             >
-              Start free trial &rarr;
+              Download free &rarr;
             </Link>
           </div>
           <nav aria-label="Product links">

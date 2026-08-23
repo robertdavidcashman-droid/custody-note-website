@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { kv } from "@vercel/kv";
 import { issueBackupCredentials } from "@/lib/aws";
+import { rateLimitResponse } from "@/lib/rate-limit";
+
+const RATE_LIMIT = { name: "backup-credentials", limit: 20, windowMs: 60_000 };
 
 /**
  * POST /api/backup/credentials
@@ -9,6 +12,9 @@ import { issueBackupCredentials } from "@/lib/aws";
  * Returns: { credentials: { accessKeyId, secretAccessKey, sessionToken, expiration, bucket, region, prefix } }
  */
 export async function POST(req: NextRequest) {
+  const limited = rateLimitResponse(req, RATE_LIMIT);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const key = typeof body?.key === "string" ? body.key.trim() : "";
@@ -61,7 +67,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ credentials });
   } catch (err) {
-    console.error("Backup credentials error:", err);
+    console.error("Backup credentials error");
     return NextResponse.json(
       {
         error:
