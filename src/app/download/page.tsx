@@ -11,11 +11,9 @@ export const metadata: Metadata = {
   alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://custodynote.com"}/download` },
 };
 
-const DROID_RELEASE =
-  "https://github.com/robertdavidcashman-droid/custody-note-app/releases/download";
-const WIN_URL = `${DROID_RELEASE}/v${APP_VERSION}/Custody-Note-Setup-${APP_VERSION}.exe`;
-const MAC_ARM_URL = `${DROID_RELEASE}/v${APP_VERSION}/Custody-Note-${APP_VERSION}-arm64.dmg`;
-const MAC_X64_URL = `${DROID_RELEASE}/v${APP_VERSION}/Custody-Note-${APP_VERSION}-x64.dmg`;
+const WIN_URL = `/api/stats/download?platform=windows&v=${APP_VERSION}`;
+const MAC_ARM_URL = `/api/stats/download?platform=mac&arch=arm64&v=${APP_VERSION}`;
+const MAC_X64_URL = `/api/stats/download?platform=mac&arch=x64&v=${APP_VERSION}`;
 
 export default function DownloadPage() {
   return (
